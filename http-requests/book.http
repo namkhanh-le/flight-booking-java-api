@@ -1,0 +1,148 @@
+### BOOKING SYSTEM TESTS
+
+### 0. Prerequisites: Create User, Client, Plane, and Flight first
+
+### Create a User
+POST http://localhost:8080/api/v1/user
+# expected 201
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "address": "456 Oak Avenue",
+  "email": "jane.doe@email.com",
+  "phoneNumber": "+9876543210",
+  "birthDate": "1992-07-20"
+}
+
+### Create a Client (linked to User above)
+POST http://localhost:8080/api/v1/client
+# expected 405
+Content-Type: application/json
+
+{
+  "passportNumber": "PP123456",
+  "user": {
+    "id": 1
+  }
+}
+
+### Create a Plane
+POST http://localhost:8080/api/v1/plane
+# expected 201
+Content-Type: application/json
+
+{
+  "planeBrand": "Boeing",
+  "planeModel": "737",
+  "manufacturingYear": 2020
+}
+
+### Create a Flight
+POST http://localhost:8080/api/v1/flight
+# expected 201
+Content-Type: application/json
+
+{
+  "flightNumber": "BA456",
+  "departureCity": "London",
+  "arrivalCity": "New York",
+  "departureDate": "2025-12-25T10:00:00",
+  "arrivalDate": "2025-12-25T18:00:00",
+  "departureAirport": "LHR",
+  "arrivalAirport": "JFK",
+  "plane": {
+    "planeId": 1
+  },
+  "numberOfSeats": 180,
+  "businessPrice": 1200.00,
+  "economyPrice": 450.00
+}
+
+###############################################
+### BOOKING TESTS START HERE
+###############################################
+
+### 1. Create a Booking
+# Expected: 201 Created
+POST http://localhost:8080/api/v1/book
+Content-Type: application/json
+
+{
+  "flight": {
+    "flightId": 1
+  },
+  "client": {
+    "passportNumber": "PP123456"
+  },
+  "typeOfSeat": "ECONOMY"
+}
+
+### 2. Get All Bookings
+# Expected: 200 OK
+GET http://localhost:8080/api/v1/book
+
+### 3. Get One Booking by ID
+# Expected: 200 OK
+GET http://localhost:8080/api/v1/book/1
+
+### 4. Get Bookings by Client Passport
+# Expected: 200 OK
+GET http://localhost:8080/api/v1/book/client/PP123456
+
+### 5. Check Available Seats for a Flight
+# Expected: 200 OK
+GET http://localhost:8080/api/v1/book/flight/1/available-seats
+
+### 6. Update Booking (Change Seat Type)
+# Expected: 200 OK
+PUT http://localhost:8080/api/v1/book/1
+Content-Type: application/json
+
+{
+  "typeOfSeat": "BUSINESS"
+}
+GET http://localhost:8080/api/v1/client
+
+### 7. Cancel a Booking
+# Expected: 200 OK
+PUT http://localhost:8080/api/v1/book/1/cancel
+
+### 8. Create Booking with Invalid Seat Type (Should Fail)
+# Expected: 400 Bad Request
+POST http://localhost:8080/api/v1/book
+Content-Type: application/json
+
+{
+  "flight": {
+    "flightId": 1
+  },
+  "client": {
+    "passportNumber": "PP123456"
+  },
+  "typeOfSeat": "INVALID_SEAT"
+}
+
+### 9. Create Booking for Non-Existent Flight (Should Fail)
+# Expected: 500 or 404
+POST http://localhost:8080/api/v1/book
+Content-Type: application/json
+
+{
+  "flight": {
+    "flightId": 9999
+  },
+  "client": {
+    "passportNumber": "PP123456"
+  },
+  "typeOfSeat": "ECONOMY"
+}
+
+### 10. Delete a Booking
+# Expected: 204 No Content
+DELETE http://localhost:8080/api/v1/book/1
+
+### 11. Try to Get Deleted Booking (Should Fail)
+# Expected: 404 Not Found
+GET http://localhost:8080/api/v1/book/1
