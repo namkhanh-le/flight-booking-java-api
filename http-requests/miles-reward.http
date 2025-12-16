@@ -1,0 +1,13 @@
+### MILESREWARD SYSTEM TESTS
+
+### 1. Get All Rewards
+GET http://localhost:8080/api/v1/miles-reward
+
+### 2. Get Rewards for Specific Client
+GET http://localhost:8080/api/v1/miles-reward/client/PP123456
+
+### 3. Get Discount Code for Client
+GET http://localhost:8080/api/v1/miles-reward/client/PP123456/discount
+
+### 4. Get Flight Count for Client
+GET http://localhost:8080/api/v1/miles-reward/client/PP123456/flight-count

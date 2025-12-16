@@ -96,25 +96,19 @@ public class FlightService {
             flight.setArrivalAirport(updateRequest.getArrivalAirport());
         }
 
-        // 9. Update Plane (IMPORTANT: Object Relation, Not ID)
-        if (updateRequest.getPlane() != null &&
-                !Objects.equals(flight.getPlane(), updateRequest.getPlane())) {
-            flight.setPlane(updateRequest.getPlane());
-        }
-
-        // 10. Update Number of Seats
+        // 9. Update Number of Seats
         if (updateRequest.getNumberOfSeats() != null &&
                 !Objects.equals(flight.getNumberOfSeats(), updateRequest.getNumberOfSeats())) {
             flight.setNumberOfSeats(updateRequest.getNumberOfSeats());
         }
 
-        // 11. Update Business Price
+        // 10. Update Business Price
         if (updateRequest.getBusinessPrice() != null &&
                 !Objects.equals(flight.getBusinessPrice(), updateRequest.getBusinessPrice())) {
             flight.setBusinessPrice(updateRequest.getBusinessPrice());
         }
 
-        // 12. Update Economy Price
+        // 11. Update Economy Price
         if (updateRequest.getEconomyPrice() != null &&
                 !Objects.equals(flight.getEconomyPrice(), updateRequest.getEconomyPrice())) {
             flight.setEconomyPrice(updateRequest.getEconomyPrice());

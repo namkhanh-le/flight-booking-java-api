@@ -35,10 +35,6 @@ public class Flight {
     @Column(nullable = false)
     private String arrivalAirport;
 
-    @ManyToOne
-    @JoinColumn(name = "plane_id", nullable = false)
-    private Plane plane;
-
     @Column(nullable = false)
     private Integer numberOfSeats;
 
@@ -51,7 +47,7 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Long flightId, String flightNumber, String departureCity, String arrivalCity, LocalDateTime departureDate, LocalDateTime arrivalDate, String departureAirport, String arrivalAirport, Plane plane, Integer numberOfSeats, BigDecimal businessPrice, BigDecimal economyPrice) {
+    public Flight(Long flightId, String flightNumber, String departureCity, String arrivalCity, LocalDateTime departureDate, LocalDateTime arrivalDate, String departureAirport, String arrivalAirport, Integer numberOfSeats, BigDecimal businessPrice, BigDecimal economyPrice) {
         this.flightId = flightId;
         this.flightNumber = flightNumber;
         this.departureCity = departureCity;
@@ -60,7 +56,6 @@ public class Flight {
         this.arrivalDate = arrivalDate;
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
-        this.plane = plane;
         this.numberOfSeats = numberOfSeats;
         this.businessPrice = businessPrice;
         this.economyPrice = economyPrice;
@@ -128,14 +123,6 @@ public class Flight {
 
     public void setArrivalAirport(String arrivalAirport) {
         this.arrivalAirport = arrivalAirport;
-    }
-
-    public Plane getPlane() {
-        return plane;
-    }
-
-    public void setPlane(Plane plane) {
-        this.plane = plane;
     }
 
     public Integer getNumberOfSeats() {
