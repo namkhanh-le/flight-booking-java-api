@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timeout Airline</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>Timeout Airline – Admin Panel</h1>
+
+<nav>
+    <button onclick="showSection('airports')">Airports</button>
+    <button onclick="showSection('flights')">Flights</button>
+    <button onclick="showSection('planes')">Planes</button>
+    <button onclick="showSection('users')">Users</button>
+    <button onclick="showSection('clients')">Clients</button>
+    <button onclick="showSection('booking')">Booking</button>
+</nav>
+
+<hr>
+
+<section id="airports" class="section">
+    <h2>Airports</h2>
+
+    <form id="airport-form">
+        <input type="text" id="airportName" placeholder="Airport Name" required>
+        <input type="text" id="airportCity" placeholder="City" required>
+        <input type="text" id="airportCountry" placeholder="Country" required>
+        <button type="submit">Add Airport</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="airport-table"></tbody>
+    </table>
+</section>
+
+<section id="flights" class="section hidden">
+    <h2>Flights</h2>
+    <button onclick="loadFlights()">Load Flights</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Flight ID</th>
+            <th>Flight Number</th>
+            <th>Departure City</th>
+            <th>Arrival City</th>
+            <th>Departure Date</th>
+            <th>Arrival Date</th>
+            <th>Departure Airport</th>
+            <th>Arrival Airport</th>
+            <th>Seats</th>
+            <th>Business Price</th>
+            <th>Economy Price</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="flight-table"></tbody>
+    </table>
+</section>
+
+<section id="planes" class="section hidden">
+    <h2>Planes</h2>
+    <button onclick="loadPlanes()">Load Planes</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Manufacturing Year</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="plane-table"></tbody>
+    </table>
+
+    
+</section>
+
+<section id="users" class="section hidden">
+    <h2>Users</h2>
+    <button onclick="loadUsers()">Load Users</button>
+<br><br>
+    <form id="user-form">
+        <input id="user-firstname" placeholder="First name" required>
+        <input id="user-lastname" placeholder="Last name" required>
+        <input id="user-email" placeholder="Email" required>
+        <input id="user-address" placeholder="Address" required>
+        <input id="user-phone" placeholder="Phone number" required>
+        <input id="user-birthdate" type="date" placeholder="Birth date" required>
+        <button type="submit">Add User</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Birth Date</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="user-table"></tbody>
+    </table>
+</section>
+
+<section id="clients" class="section hidden">
+    <h2>Clients</h2>
+    <button onclick="loadClients()">Load Clients</button>
+<br><br>
+    <form id="client-form">
+        <input id="client-passport" placeholder="Passport number" required>
+
+        <select id="client-user"></select>
+
+        <button type="submit">Add Client</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Passport</th>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Birth Date</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="client-table"></tbody>
+    </table>
+</section>
+
+<section id="booking" class="section hidden">
+    <h2>Book a Flight</h2>
+
+    <form id="booking-form">
+            <button onclick="loadBookings()">Load Bookings</button>
+        <br><br>
+        <input id="booking-passport" placeholder="Client passport" required>
+        <input id="booking-flight" placeholder="Flight ID" required>
+        
+        <select id="booking-seat">
+            <option value="ECONOMY">Economy</option>
+            <option value="BUSINESS">Business</option>
+        </select>
+
+        <button type="submit">Book</button>
+
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>Booking ID</th>
+            <th>Flight Number</th>
+            <th>Client Passport</th>
+            <th>Client Name</th>
+            <th>Seat Class</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="booking-table"></tbody>
+    </table>
+
+    <div id="booking-result"></div>
+</section>
+
+
+<script src="js/api.js"></script>
+<script src="js/airport.js"></script>
+<script src="js/flight.js"></script>
+<script src="js/plane.js"></script>
+<script src="js/user.js"></script>
+<script src="js/client.js"></script>
+<script src="js/booking.js"></script>
+<script>
+    function showSection(id) {
+        document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+        document.getElementById(id).classList.remove('hidden');
+        // Load data for the section when it's shown
+        if (id === 'clients') {
+            if (typeof loadUsersForClients === 'function') loadUsersForClients();
+            if (typeof loadClients === 'function') loadClients();
+        }
+    }
+</script>
+
+</body>
+</html>

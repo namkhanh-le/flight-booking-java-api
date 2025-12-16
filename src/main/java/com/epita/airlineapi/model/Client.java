@@ -4,15 +4,18 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "client")
 public class Client {
 
     @Id
+    @Column(nullable = false, unique = true)
     private String passportNumber;
 
     @OneToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    // 🔹 Required by JPA
     public Client() {
     }
 
@@ -39,14 +42,14 @@ public class Client {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (!(o instanceof Client)) return false;
         Client client = (Client) o;
-        return Objects.equals(passportNumber, client.passportNumber) &&
-                Objects.equals(user, client.user);
+        return Objects.equals(passportNumber, client.passportNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(passportNumber, user);
+        return Objects.hash(passportNumber);
     }
 }

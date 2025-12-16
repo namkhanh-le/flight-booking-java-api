@@ -24,10 +24,7 @@ Content-Type: application/json
   "arrivalAirport": "LHR",
   "numberOfSeats": 180,
   "businessPrice": 350.00,
-  "economyPrice": 120.00,
-  "plane": {
-    "planeId": 1
-  }
+  "economyPrice": 120.00
 }
 
 ### 2. Get all Flights (GET)
@@ -58,7 +55,7 @@ Content-Type: application/json
 ### 5. Verify Update (GET)
 # Check that:
 # - arrivalCity/arrivalAirport/arrivalDate/prices changed
-# - departureCity, departureAirport, flightNumber, plane, etc. are still the same as before.
+# - departureCity, departureAirport, flightNumber, etc. are still the same as before.
 GET http://localhost:8080/api/v1/flight/1
 
 ### 6. Test Error: Update Non-Existent Flight (PUT)
