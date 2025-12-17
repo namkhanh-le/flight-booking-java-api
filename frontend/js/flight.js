@@ -30,8 +30,8 @@ async function loadFlights() {
     });
 }
 
-async function deleteFlight(id) {
-    await fetch(`${BASE_URL}/flight/${id}`, {
+async function deleteFlight(flightId) {
+    await fetch(`${BASE_URL}/flight/${flightId}`, {
         method: "DELETE"
     });
     loadFlights();

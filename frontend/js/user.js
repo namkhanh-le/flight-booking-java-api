@@ -53,8 +53,5 @@ async function deleteUser(userId) {
 
     if (response.ok || response.status === 204) {
         loadUsers();
-    } else {
-        const errorText = await response.text();
-        alert("Delete user failed: " + errorText);
-    }
+    }   
 }

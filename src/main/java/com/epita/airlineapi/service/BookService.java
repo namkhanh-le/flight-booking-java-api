@@ -21,11 +21,13 @@ public class BookService {
     private final BookRepository bookRepository;
     private final FlightRepository flightRepository;
     private final ClientRepository clientRepository;
+    private final MilesRewardService milesRewardService;
 
-    public BookService(BookRepository bookRepository, FlightRepository flightRepository, ClientRepository clientRepository) {
+    public BookService(BookRepository bookRepository, FlightRepository flightRepository, ClientRepository clientRepository, MilesRewardService milesRewardService) {
         this.bookRepository = bookRepository;
         this.flightRepository = flightRepository;
         this.clientRepository = clientRepository;
+        this.milesRewardService = milesRewardService;
     }
 
     // Get all bookings
@@ -99,6 +101,12 @@ public class BookService {
             book.setBookingStatus("CONFIRMED");
         }
 
+        Book savedBooking = bookRepository.save(book);
+
+        milesRewardService.recordFlight(
+                book.getClient(),
+                book.getFlight()
+        );
         // Save the booking
         return bookRepository.save(book);
     }

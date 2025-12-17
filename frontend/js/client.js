@@ -79,8 +79,5 @@ async function deleteClient(passportNumber) {
 
     if (response.ok || response.status === 204) {
         loadClients();
-    } else {
-        const errorText = await response.text();
-        alert("Delete client failed: " + errorText);
     }
 }

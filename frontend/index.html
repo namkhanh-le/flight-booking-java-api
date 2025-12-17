@@ -16,6 +16,9 @@
     <button onclick="showSection('users')">Users</button>
     <button onclick="showSection('clients')">Clients</button>
     <button onclick="showSection('booking')">Booking</button>
+    <button onclick="showSection('employees')">Employees</button>
+    <button onclick="showSection('miles')">Miles</button>
+
 </nav>
 
 <hr>
@@ -151,10 +154,9 @@
 
 <section id="booking" class="section hidden">
     <h2>Book a Flight</h2>
-
+    <button onclick="loadBookings()">Load Bookings</button>
+    <br><br>
     <form id="booking-form">
-            <button onclick="loadBookings()">Load Bookings</button>
-        <br><br>
         <input id="booking-passport" placeholder="Client passport" required>
         <input id="booking-flight" placeholder="Flight ID" required>
         
@@ -183,6 +185,60 @@
     <div id="booking-result"></div>
 </section>
 
+<section id="employees" class="section hidden">
+    <h2>Employees</h2>
+    <button onclick="loadEmployees()">Load Employees</button>
+    <br><br>
+    <form id="employee-form">
+    <input id="employee-profession" placeholder="Profession">
+    <input id="employee-title" placeholder="Title">
+    <select id="employee-user"></select>
+    <button type="submit">Add Employee</button>
+    </form>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Employee ID</th>
+            <th>Profession</th>
+            <th>Title</th>
+            <th>User ID</th>
+            <th>User Name</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="employee-table-body"></tbody>
+    </table>
+    
+</section>
+
+<section id="miles" class="section hidden">
+    <h2>Miles & Rewards</h2>
+
+    <div>
+        <input id="miles-passport" placeholder="Client passport number">
+        <button onclick="loadMilesByClient()">Load Client Miles</button>
+        <button onclick="loadFlightCount()">Flight Count</button>
+        <button onclick="loadDiscount()">Check Discount</button>
+    </div>
+
+    <h3>Rewards</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Reward ID</th>
+            <th>Passport</th>
+            <th>Flight ID</th>
+            <th>Date</th>
+            <th>Discount Code</th>
+        </tr>
+        </thead>
+        <tbody id="miles-table"></tbody>
+    </table>
+
+    <div id="miles-info"></div>
+</section>
+
 
 <script src="js/api.js"></script>
 <script src="js/airport.js"></script>
@@ -191,6 +247,8 @@
 <script src="js/user.js"></script>
 <script src="js/client.js"></script>
 <script src="js/booking.js"></script>
+<script src="js/employee.js"></script>
+<script src="js/miles.js"></script>
 <script>
     function showSection(id) {
         document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
